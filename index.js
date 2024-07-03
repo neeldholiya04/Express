@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 
 app.use(express.json());
+app.use(loggerMiddleware);
 
 let courese = [
     {id: 1, name: "John", email: "john@example.com"},
@@ -43,6 +44,21 @@ app.delete('/:id', (req, res) => {
     res.json(courese);
 }
 );
+
+function sampleMiddleware(req, res, next) {
+    console.log('This is a sample middleware');
+    next();
+}
+
+// contains method, ip, hostname, date
+function loggerMiddleware(req, res, next) {
+    console.log("method: " + req.method);
+    console.log("ip: " + req.ip);
+    console.log("hostname: " + req.hostname);
+    console.log("date: " + new Date());
+    next();
+}
+
 
 app.listen(3000,
     () => console.log('Listening on port 3000...')
