@@ -36,6 +36,14 @@ app.put('/:id', (req, res) => {
 }
 );
 
+app.delete('/:id', (req, res) => {
+    let course = courese.find(c => c.id === parseInt(req.params.id));
+    let index = courese.indexOf(course);
+    courese.splice(index, 1);
+    res.json(courese);
+}
+);
+
 app.listen(3000,
     () => console.log('Listening on port 3000...')
 )
